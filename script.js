@@ -32,7 +32,7 @@ function game() {
     let score = [0,0]
     let lastResult = ''
     for (let i = 0; i<5; i++){
-        let playerSelect = prompt(lastResult + ' ' + 'What is your move ?')
+        let playerSelect = prompt(lastResult + ` The score now is ${score[0]} to ${score[1]}.` + ' ' + 'What is your move ?')
         if (!playerSelect || !choice.includes(playerSelect.toLowerCase())) {
             //checks for valid answers
             alert('Please enter rock, paper or scissors')
@@ -48,10 +48,9 @@ function game() {
                 score[0] += 1
                 score[1] += 1
             } //checks on the return string the fourth letter (either w or l if won or lost for keeping track of the score)
-            lastResult = lastResult + ` The score now is ${score[0]} to ${score[1]}`
         }
     }
-    return finalResult(score)
+    return lastResult + ' ' + finalResult(score)
 }
 
 function finalResult(score){
