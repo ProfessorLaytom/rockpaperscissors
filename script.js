@@ -1,57 +1,110 @@
 const choice = ['rock', 'paper', 'scissors']
+let score = [0,0]
+let round = 0
 
 function computerPlay() {
     return choice[Math.floor(Math.random()*3)]
 }
 
-computerPlay()
-
-function singleRound(playerSelect, computerSelect = computerPlay()) {
+function giveRoundResult(playerSelect, computerSelect) {
     //Tedious way to see who wins, who loses and draws
-    //lowers all cases to ensure it works
-    playerSelect = playerSelect.toLowerCase();
+    const result = document.querySelector('.results') //where to put the round results
     if (playerSelect === computerSelect) {
-        return `That\'s a draw ! ${playerSelect} is equal to ${playerSelect}.`
+        result.textContent = `That\'s a draw ! ${playerSelect} is equal to ${playerSelect}.`
+        score[0] +=1
+        score[1] +=1
     }  else if  (playerSelect == 'rock' && computerSelect == 'paper'){
-        return 'You lose ! Paper beats rock.'
+        result.textContent = 'You lose ! Paper beats rock.' 
+        score[1] += 1
     } else if (playerSelect == 'rock' && computerSelect == 'scissors') {
-        return 'You win ! Rock beats scissors.'
+        result.textContent = 'You win ! Rock beats scissors.'
+        score[0] += 1
     }else if (playerSelect == 'paper' && computerSelect == 'rock'){
-        return 'You win ! Paper beats rock.'
+        result.textContent = 'You win ! Paper beats rock.'
+        score[0] += 1
     }else if (playerSelect == 'paper' && computerSelect == 'scissors'){
-        return 'You lose ! scissors beats paper.'
+        result.textContent = 'You lose ! scissors beats paper.'
+        score[1] += 1
     }else if (playerSelect == 'scissors' && computerSelect == 'rock'){
-        return 'You lose ! Rock beats scissors.'
+        result.textContent = 'You lose ! Rock beats scissors.'
+        score[1] += 1
     }else if (playerSelect == 'scissors' && computerSelect == 'paper'){
-        return 'You win ! Scissors beats paper.'
+        result.textContent = 'You win ! Scissors beats paper.'
+        score[0] += 1
     }
+    scoreBoard.textContent = `The score is now ${score[0]} to ${score[1]}.`
+    round += 1
+
+
 }
 
-function game() {
-    //function for a full game of 5 rounds
-    let score = [0,0]
-    let lastResult = ''
-    for (let i = 0; i<5; i++){
-        let playerSelect = prompt(lastResult + ` The score now is ${score[0]} to ${score[1]}.` + ' ' + 'What is your move ?')
-        if (!playerSelect || !choice.includes(playerSelect.toLowerCase())) {
-            //checks for valid answers
-            alert('Please enter rock, paper or scissors')
-            break
-        }
-        else {
-            lastResult = singleRound(playerSelect)
-            if (lastResult[4] == 'l') {
-                score[1] += 1
-            }else if (lastResult[4] == 'w'){
-                score[0] += 1
-            } else {
-                score[0] += 1
-                score[1] += 1
-            } //checks on the return string the fourth letter (either w or l if won or lost for keeping track of the score)
-        }
+
+function singleRound(e) {
+    //handles a single round and updates the html accordingly
+    const computer = document.querySelector('.computer')
+    computer.removeChild(computer.lastChild) //removes the last computer choice
+    const playerSelect = e.target.parentElement.className //checks if the player clicked on r p or s
+    const imgToHighlight = document.querySelector(`.${playerSelect}`)
+    imgToHighlight.classList.add('chosen') //adds class chosen for changing the border color of the choice
+    const computerSelect = computerPlay() 
+    const computerPlayImage = document.createElement('img')
+    computerPlayImage.src = `./${computerSelect}.png` 
+    computerPlayImage.classList.add('chosen')
+    
+    function thinking(){
+        //time for the computer to 'think'
+        imgToHighlight.classList.remove('chosen'); 
+        computerPlayImage.classList.remove('chosen');
+        computer.appendChild(computerPlayImage)
+        giveRoundResult(playerSelect, computerSelect); //gives the result of the round and updates scoreboard
+        
     }
-    return lastResult + ' ' + finalResult(score)
+    console.log(round)
+    if (round < 5){
+        setTimeout(thinking, 500)
+    }else{
+        //final score and reset button for another round
+        giveRoundResult(playerSelect, computerSelect);
+        scoreBoard.textContent = `The final score is ${score[0]} to ${score[1]}.`
+        const finalMessage = document.createElement('h3');
+        finalMessage.classList.add('.finalMessage')
+        if (score[0] > score[1]){
+            finalMessage.textContent = 'You Win !'
+        } else if (score[0] < score[1]){
+            finalMessage.textContent = 'You Lose ! You\'re sooo bad'
+        } else {
+            finalMessage.textContent = 'It\'s a draw ! Nice try though '
+        }
+        scoreBoard.appendChild(finalMessage)
+        let resetbtn = document.createElement('button')
+        resetbtn.classList.add('resetbtn')
+        resetbtn.textContent = 'Click me to try again !'
+        resetbtn.addEventListener('click', reset)
+        body.appendChild(resetbtn)
+        const opponents = document.querySelector('.opponents')
+        while (opponents.firstChild){
+            opponents.removeChild(opponents.firstChild)
+        }
+        }
+    
 }
+    
+
+
+function reset() {
+    location.reload()
+}
+
+
+let scoreBoard = document.querySelector('.scoreBoard')
+const body = document.querySelector('body')
+const buttons = Array.from(document.querySelectorAll('button'))
+buttons.forEach(btn => btn.addEventListener('click', singleRound))
+
+
+
+    
+
 
 function finalResult(score){
     if (score[0] > score[1]){
