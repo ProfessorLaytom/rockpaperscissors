@@ -1,0 +1,74 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+
+}
+
+img {
+    height: 100px;
+    width:100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.opponents {
+    display: flex;
+    justify-content: space-around;
+}
+
+.you {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+}
+
+.choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap : 10px;
+    justify-content: center;
+}
+
+.middle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+}
+
+.computer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+}
+
+button {
+    background-color: white;
+    border: 0;
+    padding: 0;
+}
+
+.chosen {
+    border-color: rgb(187, 18, 18);
+    border:4px solid;
+    border-radius: 10px;
+    height: 107px;
+}
+
+.resetbtn {
+    border-radius: 10px;
+    background-color: rgb(202, 228, 250);
+    border: 1px solid blue;
+    padding: 5px;
+    transition: .3s;
+}
+
+.resetbtn:hover {
+    background-color: rgb(177, 200, 219);
+}
