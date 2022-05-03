@@ -1,11 +1,17 @@
+html {
+    height: 100%;
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    min-height: 100%;
+    margin: 0;
 }
 
 h1 {
-
 }
 
 img {
@@ -13,6 +19,12 @@ img {
     width:100px;
     object-fit: cover;
     border-radius: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .opponents {
@@ -71,4 +83,8 @@ button {
 
 .resetbtn:hover {
     background-color: rgb(177, 200, 219);
+}
+
+.footer {
+    padding: 15px;
 }

@@ -1,6 +1,6 @@
 const choice = ['rock', 'paper', 'scissors']
 let score = [0,0]
-let round = 0
+let round = 1
 
 function computerPlay() {
     return choice[Math.floor(Math.random()*3)]
@@ -34,7 +34,7 @@ function giveRoundResult(playerSelect, computerSelect) {
     }
     scoreBoard.textContent = `The score is now ${score[0]} to ${score[1]}.`
     round += 1
-
+    console.log(round)
 
 }
 
@@ -52,14 +52,13 @@ function singleRound(e) {
     computerPlayImage.classList.add('chosen')
     
     function thinking(){
-        //time for the computer to 'think'
+        //function for settimeout, gives time for the computer to 'think'
         imgToHighlight.classList.remove('chosen'); 
         computerPlayImage.classList.remove('chosen');
         computer.appendChild(computerPlayImage)
         giveRoundResult(playerSelect, computerSelect); //gives the result of the round and updates scoreboard
         
     }
-    console.log(round)
     if (round < 5){
         setTimeout(thinking, 500)
     }else{
@@ -77,15 +76,19 @@ function singleRound(e) {
         }
         scoreBoard.appendChild(finalMessage)
         let resetbtn = document.createElement('button')
+        let footer = document.querySelector('.footer')
         resetbtn.classList.add('resetbtn')
         resetbtn.textContent = 'Click me to try again !'
         resetbtn.addEventListener('click', reset)
-        body.appendChild(resetbtn)
+        console.log(body.lastChild)
         const opponents = document.querySelector('.opponents')
         while (opponents.firstChild){
             opponents.removeChild(opponents.firstChild)
         }
-        }
+        body.insertBefore(scoreBoard, footer)
+        body.insertBefore(resetbtn, footer)
+    }
+    
     
 }
     
