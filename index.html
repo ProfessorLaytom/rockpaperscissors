@@ -5,11 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPS</title>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1 class="title">The ultimate showdown:
     Rock-paper-scissors</h1>
+    <div class="scoreBoard">
+
+    </div>
     <div class="opponents">
         <div class="you">
             <p>Chose your next move</p>
@@ -17,11 +21,16 @@
                 <button class="rock"><img
                 src="./rock.png"></button>
                 <button class="paper"><img
-                src="./paper.jpg"></button>
+                src="./paper.png"></button>
                 <button class="scissors"><img src="./scissors.png"></button>
             </div>
         </div>
-        <h2>VS</h2>
+        <div class="middle-container">
+            <h2>VS</h2>
+            <div class="results">
+
+            </div>
+        </div>
         <div class="computer">
             <img src="./computer.png">
         </div>
